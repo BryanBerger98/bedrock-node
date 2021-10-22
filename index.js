@@ -6,6 +6,19 @@ const pjson = require('./package.json');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const { PORT, MONGODB_URI } = process.env;
+const corsMiddleware = require('./middlewares/cors');
+const notFoundMiddleware = require('./middlewares/not-found');
+const compression = require('compression');
+
+app.use(corsMiddleware);
+
+app.use(compression());
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
+app.use('/auth', require('./domain/authentication'));
+
+app.use(notFoundMiddleware);
 
 const mongoOptions = {
     useNewUrlParser: true,
