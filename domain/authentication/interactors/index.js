@@ -3,6 +3,8 @@ const UsersRepository = new (require('../repositories/users.repository'))(UserMo
 
 class AuthInteractors {
 
+    getAllUsers = new (require('./get-all-users.interactor'))(UsersRepository);
+    getAllUsersCount = new (require('./get-all-users-count.interactor'))(UsersRepository);
     getUserByEmail = new (require('./get-user-by-email.interactor'))(UsersRepository);
     getUserById = new (require('./get-user-by-id.interactor'))(UsersRepository);
     loginUser = new (require('./login-user.interactor'))(UsersRepository);

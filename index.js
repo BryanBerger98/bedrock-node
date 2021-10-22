@@ -9,12 +9,17 @@ const { PORT, MONGODB_URI } = process.env;
 const corsMiddleware = require('./middlewares/cors');
 const notFoundMiddleware = require('./middlewares/not-found');
 const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const passportMiddleware = require('./middlewares/passport');
 
 app.use(corsMiddleware);
 
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(cookieParser());
+
+app.use(passportMiddleware);
 
 app.use('/auth', require('./domain/authentication'));
 
