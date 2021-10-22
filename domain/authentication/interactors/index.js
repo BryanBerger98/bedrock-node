@@ -9,6 +9,7 @@ class AuthInteractors {
     getUserById = new (require('./get-user-by-id.interactor'))(UsersRepository);
     loginUser = new (require('./login-user.interactor'))(UsersRepository);
     registerUser = new (require('./register-user.interactor'))(UsersRepository);
+    updateUser = new (require('./update-user.interactor'))(UsersRepository);
 
 }
 

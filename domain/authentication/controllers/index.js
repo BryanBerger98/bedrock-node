@@ -10,6 +10,7 @@ class AuthController {
     loginUser = new (require('./login-user.controller'))(authInteractors);
     logoutUser = new (require('./logout-user.controller'))(authInteractors);
     registerUser = new (require('./register-user.controller'))(authInteractors);
+    updateUser = new (require('./update-user.controller'))(authInteractors);
 
 }
 
