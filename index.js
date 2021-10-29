@@ -21,7 +21,9 @@ app.use(cookieParser());
 
 app.use(passportMiddleware);
 
+app.use('/admin', require('./domain/admin'));
 app.use('/auth', require('./domain/authentication'));
+app.use('/users', require('./domain/users'));
 
 app.use(notFoundMiddleware);
 

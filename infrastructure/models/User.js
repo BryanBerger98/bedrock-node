@@ -43,6 +43,12 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics = {
+    exists (user) {
+        this.findOne({email}).exec()
+        .then((user) => {
+            return user ? true : false;
+        });
+    },
     comparePassword (candidatePassword, password) {
         return bcrypt.compare(candidatePassword, password);
     },

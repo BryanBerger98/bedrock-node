@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy
-const UserModel = require('../domain/authentication/models/User');
+const UserModel = require('../infrastructure/models/User');
 
 app.use(passport.initialize());
 

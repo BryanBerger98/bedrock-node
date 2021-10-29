@@ -1,4 +1,4 @@
-class RegisterUserInteractor {
+class CreateUserInteractor {
 
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
@@ -12,4 +12,4 @@ class RegisterUserInteractor {
 
 }
 
-module.exports = RegisterUserInteractor;
+module.exports = CreateUserInteractor;

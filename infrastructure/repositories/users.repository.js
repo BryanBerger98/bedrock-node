@@ -35,7 +35,7 @@ class UsersRepository {
         });
     }
 
-    async registerUser(user) {
+    async createUser(user) {
         user = new this.UserModel(user);
         await this._checkExistance(user, false);
         const hashedPassword = await this._hashPassword(user.password);
@@ -55,30 +55,27 @@ class UsersRepository {
         return {token, user: userFound};
     }
 
-    async createUser(user) {
-        user = new this.UserModel(user);
-        await this._checkExistance(user, false);
-        const password = this._generatePassword();
-        const hashedPassword = await this._hashPassword(password);
-        user.password = hashedPassword;
-        const newUser = user.save();
-        return newUser;
+    deleteUser(userId) {
+        return new Promise((resolve, reject) => {
+            this.UserModel.findOneAndDelete({_id: userId})
+            .then((deletedUser) => {
+                deletedUser = deletedUser.toObject();
+                delete deletedUser.password;
+                resolve(deletedUser);
+            }).catch(reject);
+        });
     }
 
-    async deleteUserById(userId){
-        const deleteUser = await this.UserModel.findById(userId);
-        if (!deleteUser){
-            const error = new Error('User does not exist');
-            throw error;
-        }
-        const deletedUser = await deleteUser.remove();
-        return deletedUser;
+    deleteManyUsers(userIds) {
+        return new Promise((resolve, reject) => {
+            this.UserModel.deleteMany({_id: {$in: userIds}}).then(resolve).catch(reject);
+        });
     }
 
     updateUser(user) {
         return new Promise((resolve, reject) => {
             if (user.password) delete user.password;
-            this.UserModel.findOneAndUpdate({ _id: user._id }, { $set: {...user} })
+            this.UserModel.findOneAndUpdate({ _id: user._id }, { $set: {...user} }, {new: true})
             .then((updatedUser) => {
                 updatedUser = updatedUser.toObject();
                 delete updatedUser.password;
@@ -91,7 +88,7 @@ class UsersRepository {
         return new Promise((resolve, reject) => {
             const userToUpdate = {...user};
             if (userToUpdate.password) delete userToUpdate.password;
-            this.UserModel.updateOne({ email: user.email }, { $set: userToUpdate })
+            this.UserModel.findOneAndUpdate({ email: user.email }, { $set: userToUpdate }, {new: true})
             .then((updatedUser) => {
                 updatedUser = updatedUser.toObject();
                 delete updatedUser.password;
@@ -106,21 +103,20 @@ class UsersRepository {
             const error = new Error('User does not exist');
             throw error;
         }
-        user.disabled = user.disabled ? false : true;
-        const updatedUser = await this.UserModel.updateOne({ _id: user._id }, { $set: user });
+        user.disabled = !user.disabled;
+        const updatedUser = await this.UserModel.findOneAndUpdate({ _id: user._id }, { $set: user }, {new: true});
         return updatedUser;
     }
 
     async changeUserPassword(userId, oldPassword, newPassword) {
-        const user = await this.UserModel.findById(userId);
-        if (!user){
-            const error = new Error('User does not exist');
+        try {
+            const user = await this.UserModel.findById(userId);
+            await this._comparePassword(oldPassword, user.password);
+            user.password = await this._hashPassword(newPassword);
+            return await this.UserModel.updateOne({ _id: user._id }, { $set: user });
+        } catch (error) {
             throw error;
         }
-        await this._comparePassword(oldPassword, user.password);
-        user.password = await this._hashPassword(newPassword);
-        const updatedUser = await this.UserModel.updateOne({ _id: user._id }, { $set: user });
-        return updatedUser;
     }
 
     generateResetPasswordToken(email) {
