@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics = {
-    exists (user) {
+    exists ({email}) {
         this.findOne({email}).exec()
         .then((user) => {
             return user ? true : false;

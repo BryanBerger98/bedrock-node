@@ -36,12 +36,16 @@ class UsersRepository {
     }
 
     async createUser(user) {
-        user = new this.UserModel(user);
-        await this._checkExistance(user, false);
-        const hashedPassword = await this._hashPassword(user.password);
-        user.password = hashedPassword;
-        const newUser = await user.save();
-        return newUser;
+        try {
+            user = new this.UserModel(user);
+            await this._checkExistance(user, false);
+            const hashedPassword = await this._hashPassword(user.password);
+            user.password = hashedPassword;
+            const newUser = await user.save();
+            return newUser;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async loginUser(user) {
