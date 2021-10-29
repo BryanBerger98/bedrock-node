@@ -1,4 +1,4 @@
-class RoleRepository {
+class RolesRepository {
 
     constructor(RoleModel) {
         this.RoleModel = RoleModel;
@@ -79,4 +79,4 @@ class RoleRepository {
 
 }
 
-module.exports = RoleRepository;
+module.exports = RolesRepository;

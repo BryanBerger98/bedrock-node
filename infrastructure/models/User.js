@@ -64,13 +64,12 @@ userSchema.statics = {
     hashPassword(password) {
         return bcrypt.hash(password, 12)
     },
-    createToken(user, expirationDate, resetPasswordToken, validationAccountToken) {
+    createToken(user, expirationDate, action) {
         const token = jwt.sign({
             id: user._id,
             email: user.email,
             exp: expirationDate ? expirationDate : Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30),
-            resetPasswordToken: resetPasswordToken ? resetPasswordToken : false,
-            validationAccountToken: validationAccountToken ? validationAccountToken : false
+            action 
         }, JWT_SECRET);
         return token;
     },

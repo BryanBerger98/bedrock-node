@@ -54,7 +54,7 @@ class UsersRepository {
             const error = new Error('User does not exist');
             throw error;
         }
-        await this._comparePassword(user.password, userFound.password);
+        await this._comparePassword(user.password, userFound.password, 'authentication');
         const token = await this._createToken(userFound);
         return {token, user: userFound};
     }
@@ -131,8 +131,9 @@ class UsersRepository {
                     const error = new Error('User does not exist');
                     return reject(error);
                 }
-                const token = await this._createToken(user,  Math.floor(Date.now() / 1000) + (60 * 60 * 2), true, false);
-                resolve({user, token});
+                const expDate = Math.floor(Date.now() / 1000) + (60 * 60 * 2);
+                const token = await this._createToken(user, expDate, 'reset_password');
+                resolve({user, token, expDate});
             }).catch(reject);
         });
     }
@@ -192,8 +193,8 @@ class UsersRepository {
         return;
     }
 
-    async _createToken(user, expirationDate, resetPasswordToken) {
-        return await this.UserModel.createToken(user, expirationDate, resetPasswordToken);
+    async _createToken(user, expirationDate, action) {
+        return await this.UserModel.createToken(user, expirationDate, action);
     }
 
     _generatePassword() {
