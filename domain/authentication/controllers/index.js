@@ -8,6 +8,7 @@ class AuthController {
         this.logoutUser = new (require('./logout-user.controller'))(this.authInteractors);
         this.registerUser = new (require('./register-user.controller'))(this.authInteractors);
         this.getCurrentUser = new (require('./get-current-user.controller'))(this.authInteractors);
+        this.updateAccount = new (require('./update-account.controller'))(this.authInteractors);
     }
 
 }

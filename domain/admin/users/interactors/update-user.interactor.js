@@ -4,9 +4,9 @@ class UpdateUserInteractor {
         this.usersRepository = usersRepository;
     }
 
-    execute(user) {
+    execute(currentUser, {photo_url, username, phone_number}) {
         return new Promise((resolve, reject) => {
-            this.usersRepository.updateUser(user).then(resolve).catch(reject);
+            this.usersRepository.updateUser({_id: currentUser._id, photo_url, username, phone_number}).then(resolve).catch(reject);
         });
     }
 

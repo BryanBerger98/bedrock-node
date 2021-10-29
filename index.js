@@ -19,11 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
+const defaults = new (require('./defaults'))();
+defaults.setDefaults();
+
 app.use(passportMiddleware);
 
 app.use('/admin', require('./domain/admin'));
 app.use('/auth', require('./domain/authentication'));
-app.use('/users', require('./domain/users'));
 
 app.use(notFoundMiddleware);
 

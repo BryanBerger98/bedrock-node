@@ -9,6 +9,7 @@ const authController = new (require('./controllers'))(authInteractors);
 
 router.put('/change-password', passport.authenticate('jwt', {session: false}), authController.changeUserPassword);
 router.delete('/account', passport.authenticate('jwt', {session: false}), authController.deleteAccount);
+router.put('/account', passport.authenticate('jwt', {session: false}), authController.updateAccount);
 router.post('/login', authController.loginUser);
 router.get('/logout', authController.logoutUser);
 router.post('/register', authController.registerUser);
