@@ -12,6 +12,7 @@ class AuthInteractors {
         this.updateAccount = new (require('./update-account.interactor'))(this.usersRepository);
         this.sendAccountVerificationEmail = new (require('./send-account-verification-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
         this.sendResetPasswordEmail = new (require('./send-reset-password-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
+        this.verifyAccountWithToken = new (require('./verify-account-with-token.interactor'))(this.usersRepository, this.tokensRepository);
     }
 
 }

@@ -36,6 +36,22 @@ class TokensRepository {
         });
     }
 
+    checkTokenExistanceAndVerify(token) {
+        return new Promise((resolve, reject) => {
+            this.TokenModel.findOne({token})
+            .then(res => {
+                if (!res) return reject(new Error('Invalid token'));
+                this.TokenModel.verifyToken(res.token).then(resolve).catch(reject);
+            }).catch(reject);
+        });
+    }
+
+    verifyToken(token) {
+        return new Promise((resolve, reject) => {
+            this.TokenModel.verifyToken(token).then(resolve).catch(reject);
+        });
+    }
+
 }
 
 module.exports = TokensRepository;

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const {JWT_SECRET} = process.env;
 
 const tokenSchema = new mongoose.Schema({
     token: {
@@ -21,5 +23,16 @@ const tokenSchema = new mongoose.Schema({
         default: Date.now()
     }
 });
+
+tokenSchema.statics = {
+    verifyToken(token) {
+        return new Promise((resolve, reject) => {
+            jwt.verify(token, JWT_SECRET, (err, payload) => {
+                if (err) return reject(err);
+                resolve(payload);
+            })
+        });
+    }
+}
 
 module.exports = mongoose.model('Token', tokenSchema);

@@ -11,6 +11,7 @@ class AuthController {
         this.updateAccount = new (require('./update-account.controller'))(this.authInteractors);
         this.sendAccountVerificationEmail = new (require('./send-account-verification-email.controller'))(this.authInteractors);
         this.sendResetPasswordEmail = new (require('./send-reset-password-email.controller'))(this.authInteractors);
+        this.verifyAccountWithToken = new (require('./verify-account-with-token.controller'))(this.authInteractors);
     }
 
 }
