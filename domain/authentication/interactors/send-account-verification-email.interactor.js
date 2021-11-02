@@ -1,4 +1,4 @@
-class SendResetPasswordEmailInteractor {
+class SendAccountVerificationEmailInteractor {
 
     constructor(usersRepository, tokensRepository, emailsService) {
         this.usersRepository = usersRepository;
@@ -6,10 +6,10 @@ class SendResetPasswordEmailInteractor {
         this.emailsService = emailsService;
     }
 
-    async execute(email) {
+    async execute(currentUser) {
         try {
-            const {user, token, expDate} = await this.usersRepository.generateResetPasswordToken(email);
-            const savedToken = await this.tokensRepository.createToken({token, action: 'reset_password', expiration_date: expDate});
+            const {user, token, expDate} = await this.usersRepository.generateValidationAccountToken(currentUser._id);
+            const savedToken = await this.tokensRepository.createToken({token, action: 'account_verification', expiration_date: expDate});
             const response = await this.emailsService.sendAccountVerificationEmail(user, token);
             return response;
         } catch(error) {
@@ -18,4 +18,4 @@ class SendResetPasswordEmailInteractor {
     }
 }
 
-module.exports = SendResetPasswordEmailInteractor;
+module.exports = SendAccountVerificationEmailInteractor;

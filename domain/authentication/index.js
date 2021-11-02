@@ -18,5 +18,6 @@ router.get('/logout', authController.logoutUser);
 router.post('/register', authController.registerUser);
 router.get('/current', passport.authenticate('jwt', {session: false}), authController.getCurrentUser);
 router.post('/reset-password', authController.sendResetPasswordEmail);
+router.get('/verify-account', passport.authenticate('jwt', {session: false}), authController.sendAccountVerificationEmail);
 
 module.exports = router;

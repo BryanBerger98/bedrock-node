@@ -138,16 +138,17 @@ class UsersRepository {
         });
     }
 
-    generateValidationAccountToken(id) {
+    generateValidationAccountToken(userId) {
         return new Promise((resolve, reject) => {
-            this.UserModel.findOne({_id: id}, {password: 0})
+            this.UserModel.findOne({_id: userId}, {password: 0})
             .then(async (user) => {
                 if (!user) {
                     const error = new Error('User does not exist');
                     return reject(error); 
                 }
-                const token = await this._createToken(user,  Math.floor(Date.now() / 1000) + (60 * 60 * 24), false, true);
-                resolve({user, token});
+                const expDate = Math.floor(Date.now() / 1000) + (60 * 60 * 24);
+                const token = await this._createToken(user, expDate, 'account_verification');
+                resolve({user, token, expDate});
             }).catch(reject);
         });
     }

@@ -10,7 +10,7 @@ const tokenSchema = new mongoose.Schema({
     action: {
         type: String,
         required: true,
-        enum: ['authentication', 'reset_password', 'email_validation']
+        enum: ['authentication', 'reset_password', 'account_verification']
     },
     expiration_date: {
         type: Date,

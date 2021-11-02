@@ -10,6 +10,7 @@ class AuthInteractors {
         this.registerUser = new (require('./register-user.interactor'))(this.usersRepository);
         this.getCurrentUser = new (require('./get-current-user.interactor'))(this.getCurrentUser);
         this.updateAccount = new (require('./update-account.interactor'))(this.usersRepository);
+        this.sendAccountVerificationEmail = new (require('./send-account-verification-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
         this.sendResetPasswordEmail = new (require('./send-reset-password-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
     }
 
