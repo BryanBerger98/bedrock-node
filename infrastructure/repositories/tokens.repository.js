@@ -36,7 +36,7 @@ class TokensRepository {
         });
     }
 
-    checkTokenExistanceAndVerify(token) {
+    async checkTokenExistanceAndVerify(token) {
         return new Promise((resolve, reject) => {
             this.TokenModel.findOne({token})
             .then(res => {

@@ -8,9 +8,10 @@ class AuthController {
         this.logoutUser = new (require('./logout-user.controller'))(this.authInteractors);
         this.registerUser = new (require('./register-user.controller'))(this.authInteractors);
         this.getCurrentUser = new (require('./get-current-user.controller'))(this.authInteractors);
-        this.updateAccount = new (require('./update-account.controller'))(this.authInteractors);
+        this.resetPasswordWithToken = new (require('./reset-password-with-token.controller'))(this.authInteractors);
         this.sendAccountVerificationEmail = new (require('./send-account-verification-email.controller'))(this.authInteractors);
         this.sendResetPasswordEmail = new (require('./send-reset-password-email.controller'))(this.authInteractors);
+        this.updateAccount = new (require('./update-account.controller'))(this.authInteractors);
         this.verifyAccountWithToken = new (require('./verify-account-with-token.controller'))(this.authInteractors);
     }
 

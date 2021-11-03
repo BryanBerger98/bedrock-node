@@ -153,12 +153,7 @@ class UsersRepository {
         });
     }
 
-    async updatePasswordFromToken(userId, password) {
-        const user = await this.UserModel.findById(userId);
-        if (!user){
-            const error = new Error('User does not exist');
-            throw error;
-        }
+    async updateUserPassword(user, password) {
         user.password = await this._hashPassword(password);
         const updatedUser = await this.UserModel.updateOne({ _id: user._id }, { $set: user });
         return updatedUser;
