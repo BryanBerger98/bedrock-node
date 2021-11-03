@@ -114,7 +114,7 @@ class EmailsService {
                                                         <td class="esd-block-text es-m-txt-c es-p10b" align="left">
                                                             <h1 style="font-size: 20px;color:#28357C;text-align:center">Validez votre adresse email sur Bedrock</h1>
                                                             <p>Bonjour ${user.username && user.username !== '' ? user.username : user.email}</p>
-                                                            <p>Merci pour la création de votre compte iziA ! Pour l’activer et passer à l’étape suivante, nous vous invitons à cliquer sur le lien ci-dessous:</p>
+                                                            <p>Pour activer votre compte, nous vous invitons à cliquer sur le lien ci-dessous:</p>
                                                             <p><a style="word-break: break-all;" href="${tokenLink}">${tokenLink}</a></p>
                                                         </td> 
                                                     </tr>
