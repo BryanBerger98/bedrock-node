@@ -10,7 +10,7 @@ class SendResetPasswordEmailInteractor {
         try {
             const {user, token, expDate} = await this.usersRepository.generateResetPasswordToken(email);
             const savedToken = await this.tokensRepository.createToken({token, action: 'reset_password', expiration_date: expDate});
-            const response = await this.emailsService.sendAccountVerificationEmail(user, token);
+            const response = await this.emailsService.sendResetPasswordEmail(user, token);
             return response;
         } catch(error) {
             throw error;
