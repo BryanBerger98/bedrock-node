@@ -6,9 +6,9 @@ class SendResetPasswordEmailInteractor {
         this.emailsService = emailsService;
     }
 
-    async execute(email) {
+    async execute(userId) {
         try {
-            const {user, token, expDate} = await this.usersRepository.generateResetPasswordTokenByUserEmail(email);
+            const {user, token, expDate} = await this.usersRepository.generateResetPasswordTokenByUserId(userId);
             const savedToken = await this.tokensRepository.createToken({token, action: 'reset_password', expiration_date: expDate});
             const response = await this.emailsService.sendResetPasswordEmail(user, token);
             return response;

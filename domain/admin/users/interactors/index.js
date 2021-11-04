@@ -12,6 +12,7 @@ class UsersInteractors {
         this.getUserByEmail = new (require('./get-user-by-email.interactor'))(this.usersRepository);
         this.getUserById = new (require('./get-user-by-id.interactor'))(this.usersRepository);
         this.sendAccountVerificationEmail = new (require('./send-account-verification-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
+        this.sendResetPasswordEmail = new (require('./send-reset-password-email.interactor'))(this.usersRepository, this.tokensRepository, this.emailsService);
         this.switchDisableUserState = new (require('./switch-disable-user-state.interactor'))(this.usersRepository);
         this.updateUser = new (require('./update-user.interactor'))(this.usersRepository);
     }
