@@ -19,5 +19,6 @@ router.get('/disable-state/:userId', usersController.switchDisableUserState);
 router.post('/create', usersController.createUser);
 router.put('/update', usersController.updateUser);
 router.get('/verify-account/:userId', usersController.sendAccountVerificationEmail);
+router.get('/reset-password/:userId', usersController.sendResetPasswordEmail);
 
 module.exports = router;

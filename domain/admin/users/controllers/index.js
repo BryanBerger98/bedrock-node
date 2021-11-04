@@ -10,6 +10,7 @@ class UsersController {
         this.getUserByEmail = new (require('./get-user-by-email.controller'))(this.usersInteractors);
         this.getUserById = new (require('./get-user-by-id.controller'))(this.usersInteractors);
         this.sendAccountVerificationEmail = new (require('./send-account-verification-email.controller'))(this.usersInteractors);
+        this.sendResetPasswordEmail = new (require('./send-reset-password-email.controller'))(this.usersInteractors);
         this.switchDisableUserState = new (require('./switch-disable-user-state.controller'))(this.usersInteractors);
         this.updateUser = new (require('./update-user.controller'))(this.usersInteractors);
     }
