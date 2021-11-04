@@ -9,6 +9,7 @@ class UsersController {
         this.getAllUsersCount = new (require('./get-all-users-count.controller'))(this.usersInteractors);
         this.getUserByEmail = new (require('./get-user-by-email.controller'))(this.usersInteractors);
         this.getUserById = new (require('./get-user-by-id.controller'))(this.usersInteractors);
+        this.sendAccountVerificationEmail = new (require('./send-account-verification-email.controller'))(this.usersInteractors);
         this.switchDisableUserState = new (require('./switch-disable-user-state.controller'))(this.usersInteractors);
         this.updateUser = new (require('./update-user.controller'))(this.usersInteractors);
     }
